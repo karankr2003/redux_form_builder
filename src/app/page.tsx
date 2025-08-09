@@ -54,7 +54,6 @@ export default function Home() {
             Redux Form Builder
           </Typography>
           <Typography variant="h5" color="text.secondary" paragraph>
-            Create dynamic, validated forms with ease using React, Redux, and TypeScript
           </Typography>
         </Box>
 
@@ -101,30 +100,51 @@ export default function Home() {
           ))}
         </Grid>
 
-        <Box textAlign="center" mt={8}>
-          <Typography variant="h6" gutterBottom>
-            Features
+        {/* Features Section */}
+        <Box sx={{ mt: 15, textAlign: 'center' }}>
+          <Typography variant="subtitle1" component="h2" sx={{ mb: 1, fontWeight: 'medium' }}>
+            Key Features
           </Typography>
-          <Grid container spacing={2} justifyContent="center">
+          <Grid container spacing={0.5} justifyContent="center" sx={{ maxWidth: '800px', mx: 'auto' }}>
             <Grid item xs={12} sm={6} md={3}>
-              <Typography variant="body2" color="text.secondary">
-                7 Field Types
-              </Typography>
+              <Box sx={{ px: 0.5, height: '100%' }}>
+                <Typography variant="subtitle2" color="primary" sx={{ mb: 0 }}>
+                  7+ Field Types
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
+                  Text, Number, Textarea, Select, Radio, Checkbox, Date
+                </Typography>
+              </Box>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Typography variant="body2" color="text.secondary">
-                Custom Validation
-              </Typography>
+              <Box sx={{ px: 0.5, height: '100%' }}>
+                <Typography variant="subtitle2" color="primary" sx={{ mb: 0 }}>
+                  Custom Validation
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
+                  Custom validation rules and error messages
+                </Typography>
+              </Box>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Typography variant="body2" color="text.secondary">
-                Derived Fields
-              </Typography>
+              <Box sx={{ px: 0.5, height: '100%' }}>
+                <Typography variant="subtitle2" color="primary" sx={{ mb: 0 }}>
+                  Derived Fields
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
+                  Calculate fields based on other fields
+                </Typography>
+              </Box>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Typography variant="body2" color="text.secondary">
-                Local Storage
-              </Typography>
+              <Box sx={{ px: 0.5, height: '100%' }}>
+                <Typography variant="subtitle2" color="primary" sx={{ mb: 0 }}>
+                  Local Storage
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
+                  Save and load forms in browser
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
         </Box>

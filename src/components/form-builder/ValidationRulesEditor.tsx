@@ -41,29 +41,29 @@ const ValidationRulesEditor: React.FC<ValidationRulesEditorProps> = ({
   onChange,
 }) => {
   const [newRule, setNewRule] = useState<{
-    type: ValidationRule['type'] | '';
+    type: ValidationRule['type'] | null;
     value: string;
     message: string;
   }>({
-    type: '',
+    type: null,
     value: '',
     message: '',
   });
 
-  const addRule = () => {
-    if (!newRule.type || !newRule.message) return;
-
-    const ruleType = validationTypes.find(t => t.value === newRule.type);
-    if (!ruleType) return;
-
+  const handleAddRule = () => {
+    if (!newRule.type) return;
+    
     const rule: ValidationRule = {
       type: newRule.type,
-      message: newRule.message,
-      ...(ruleType.hasValue && newRule.value && { value: newRule.value }),
+      message: newRule.message || getDefaultMessage(newRule.type, newRule.value),
     };
 
+    if (['minLength', 'maxLength'].includes(newRule.type)) {
+      rule.value = Number(newRule.value) || 0;
+    }
+
     onChange([...rules, rule]);
-    setNewRule({ type: '', value: '', message: '' });
+    setNewRule({ type: null, value: '', message: '' });
   };
 
   const removeRule = (index: number) => {
@@ -132,9 +132,10 @@ const ValidationRulesEditor: React.FC<ValidationRulesEditorProps> = ({
             <FormControl fullWidth>
               <InputLabel>Validation Type</InputLabel>
               <Select
-                value={newRule.type}
+                value={newRule.type || ''}
                 label="Validation Type"
                 onChange={(e) => handleTypeChange(e.target.value as ValidationRule['type'])}
+                displayEmpty
               >
                 {validationTypes.map((type) => (
                   <MenuItem key={type.value} value={type.value}>
@@ -150,11 +151,15 @@ const ValidationRulesEditor: React.FC<ValidationRulesEditorProps> = ({
                 label="Value"
                 type="number"
                 value={newRule.value}
-                onChange={(e) => setNewRule(prev => ({
-                  ...prev,
-                  value: e.target.value,
-                  message: getDefaultMessage(prev.type, e.target.value),
-                }))}
+                onChange={(e) => setNewRule(prev => {
+                  // Only update if we have a valid rule type
+                  if (!prev.type) return { ...prev, value: e.target.value };
+                  return {
+                    ...prev,
+                    value: e.target.value,
+                    message: getDefaultMessage(prev.type, e.target.value),
+                  };
+                })}
                 helperText="Enter the length value"
               />
             )}
@@ -172,7 +177,7 @@ const ValidationRulesEditor: React.FC<ValidationRulesEditorProps> = ({
 
             <Button
               startIcon={<AddIcon />}
-              onClick={addRule}
+              onClick={handleAddRule}
               disabled={!newRule.type || !newRule.message}
               variant="outlined"
             >

@@ -43,18 +43,23 @@ const FieldEditor: React.FC<FieldEditorProps> = ({
   onCancel,
   isEditing = false,
 }) => {
-  const [formData, setFormData] = useState<Omit<FormField, 'id' | 'order'>>({
-    type: field?.type || 'text',
-    label: field?.label || '',
-    required: field?.required || false,
-    defaultValue: field?.defaultValue || '',
-    validationRules: field?.validationRules || [],
-    options: field?.options || [],
-    derivedConfig: field?.derivedConfig || {
-      isDerived: false,
-      parentFields: [],
-      formula: '',
-    },
+  const [formData, setFormData] = useState<Omit<FormField, 'id' | 'order'>>(() => {
+    const type = field?.type || 'text';
+    const isOptionField = type === 'select' || type === 'radio';
+    
+    return {
+      type,
+      label: field?.label || '',
+      required: field?.required || false,
+      defaultValue: field?.defaultValue || '',
+      validationRules: field?.validationRules || [],
+      options: isOptionField ? (field?.options || []) : undefined,
+      derivedConfig: field?.derivedConfig || {
+        isDerived: false,
+        parentFields: [],
+        formula: '',
+      },
+    };
   });
 
   const [expandedSections, setExpandedSections] = useState<string[]>(['basic']);
@@ -71,7 +76,7 @@ const FieldEditor: React.FC<FieldEditorProps> = ({
     if (!formData.label.trim()) return;
 
     // Validate options for select/radio fields
-    if ((formData.type === 'select' || formData.type === 'radio') && formData.options.length === 0) {
+    if ((formData.type === 'select' || formData.type === 'radio') && (!formData.options || formData.options.length === 0)) {
       alert('Please add at least one option for this field type.');
       return;
     }
@@ -120,6 +125,17 @@ const FieldEditor: React.FC<FieldEditorProps> = ({
 
   const needsOptions = formData.type === 'select' || formData.type === 'radio';
 
+  const handleTypeChange = (type: FieldType) => {
+    setFormData(prev => ({
+      ...prev,
+      type,
+      // Set options to empty array for select/radio, undefined for other types
+      options: (type === 'select' || type === 'radio') ? (prev.options || []) : undefined,
+      // Reset default value when type changes
+      defaultValue: ''
+    }));
+  };
+
   return (
     <Card sx={{ mb: 2 }}>
       <CardContent>
@@ -139,11 +155,7 @@ const FieldEditor: React.FC<FieldEditorProps> = ({
             <Stack spacing={3}>
               <FieldTypeSelector
                 value={formData.type}
-                onChange={(type) => setFormData(prev => ({ 
-                  ...prev, 
-                  type,
-                  options: (type === 'select' || type === 'radio') ? prev.options : [],
-                }))}
+                onChange={handleTypeChange}
                 disabled={isEditing}
               />
 
@@ -205,7 +217,7 @@ const FieldEditor: React.FC<FieldEditorProps> = ({
             </AccordionSummary>
             <AccordionDetails>
               <FieldOptionsEditor
-                options={formData.options}
+                options={formData.options || []}
                 onChange={(options) => setFormData(prev => ({ ...prev, options }))}
                 fieldType={formData.type as 'select' | 'radio'}
               />
