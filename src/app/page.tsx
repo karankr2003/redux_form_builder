@@ -101,7 +101,7 @@ export default function Home() {
         </Grid>
 
         {/* Features Section */}
-        <Box sx={{ mt: 15, textAlign: 'center' }}>
+        <Box sx={{ mt: 15  , textAlign: 'center' }}>
           <Typography variant="subtitle1" component="h2" sx={{ mb: 1, fontWeight: 'medium' }}>
             Key Features
           </Typography>
