@@ -8,7 +8,6 @@ import {
   CardContent,
   CardActions,
   Button,
-  Grid,
   Chip,
   Stack,
   Alert,
@@ -168,11 +167,17 @@ const SavedFormsList: React.FC = () => {
       </Box>
 
       {/* Forms Grid */}
-      <Grid container spacing={3}>
-        {savedForms
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gap: '24px',
+        width: '100%',
+        padding: '16px'
+      }}>
+        {[...savedForms]
           .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
           .map((form) => (
-            <Grid item xs={12} md={6} lg={4} key={form.id}>
+            <div key={form.id}>
               <Card
                 sx={{
                   height: '100%',
@@ -273,9 +278,9 @@ const SavedFormsList: React.FC = () => {
                   </IconButton>
                 </CardActions>
               </Card>
-            </Grid>
+            </div>
           ))}
-      </Grid>
+      </div>
 
       {/* Delete Confirmation Dialog */}
       <Dialog

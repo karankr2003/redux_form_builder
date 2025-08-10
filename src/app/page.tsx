@@ -9,7 +9,6 @@ import {
   Button,
   Card,
   CardContent,
-  Grid,
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -57,9 +56,9 @@ export default function Home() {
           </Typography>
         </Box>
 
-        <Grid container spacing={4}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
           {features.map((feature) => (
-            <Grid item xs={12} md={4} key={feature.title}>
+            <div key={feature.title}>
               <Card
                 sx={{
                   height: '100%',
@@ -96,57 +95,67 @@ export default function Home() {
                   </Button>
                 </CardContent>
               </Card>
-            </Grid>
+            </div>
           ))}
-        </Grid>
+        </div>
 
         {/* Features Section */}
-        <Box sx={{ mt: 15  , textAlign: 'center' }}>
-          <Typography variant="subtitle1" component="h2" sx={{ mb: 1, fontWeight: 'medium' }}>
+        <Box sx={{ mt: 10, textAlign: 'center' }}>
+          <Typography variant="subtitle1" component="h2" sx={{ mb: 4, fontWeight: 'medium' }}>
             Key Features
           </Typography>
-          <Grid container spacing={0.5} justifyContent="center" sx={{ maxWidth: '800px', mx: 'auto' }}>
-            <Grid item xs={12} sm={6} md={3}>
-              <Box sx={{ px: 0.5, height: '100%' }}>
-                <Typography variant="subtitle2" color="primary" sx={{ mb: 0 }}>
-                  7+ Field Types
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
-                  Text, Number, Textarea, Select, Radio, Checkbox, Date
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Box sx={{ px: 0.5, height: '100%' }}>
-                <Typography variant="subtitle2" color="primary" sx={{ mb: 0 }}>
-                  Custom Validation
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
-                  Custom validation rules and error messages
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Box sx={{ px: 0.5, height: '100%' }}>
-                <Typography variant="subtitle2" color="primary" sx={{ mb: 0 }}>
-                  Derived Fields
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
-                  Calculate fields based on other fields
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Box sx={{ px: 0.5, height: '100%' }}>
-                <Typography variant="subtitle2" color="primary" sx={{ mb: 0 }}>
-                  Local Storage
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
-                  Save and load forms in browser
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          <Box sx={{ 
+            display: 'flex',
+            flexWrap: 'nowrap',
+            justifyContent: 'center',
+            gap: 3,
+            overflowX: 'auto',
+            maxWidth: '100%',
+            px: 2,
+            '& > *': {
+              flex: '0 0 auto',
+              minWidth: '200px',
+              textAlign: 'center',
+              p: 2,
+              border: '1px solid',
+              borderColor: 'divider',
+              borderRadius: 1,
+              backgroundColor: 'background.paper'
+            }
+          }}>
+            <Box>
+              <Typography variant="subtitle2" color="primary" sx={{ mb: 0.5, fontWeight: 'medium' }}>
+                7+ Field Types
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
+                Text, Number, Textarea, Select, Radio, Checkbox, Date
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="subtitle2" color="primary" sx={{ mb: 0.5, fontWeight: 'medium' }}>
+                Custom Validation
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
+                Custom validation rules and error messages
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="subtitle2" color="primary" sx={{ mb: 0.5, fontWeight: 'medium' }}>
+                Derived Fields
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
+                Calculate fields based on other fields
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="subtitle2" color="primary" sx={{ mb: 0.5, fontWeight: 'medium' }}>
+                Local Storage
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2, display: 'block' }}>
+                Save and load forms in browser
+              </Typography>
+            </Box>
+          </Box>
         </Box>
       </Container>
     </>
