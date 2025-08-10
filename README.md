@@ -27,7 +27,7 @@ A powerful form builder application built with Next.js, React, Redux Toolkit, an
 
 ## Live Demo
 
-Check out the live demo of the application: [Redux Form Builder on Netlify](https://your-netlify-app-url.netlify.app)
+Check out the live demo of the application: [Redux Form Builder on Netlify](https://redux-form-builder.netlify.app/)
 
 ## Getting Started
 
@@ -92,12 +92,3 @@ src/
 - `@types/react`: ^19
 - `@types/react-dom`: ^19
 - `tailwindcss`: ^4
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
